@@ -41,23 +41,34 @@ async function getWeatherDetail(lat, lon) {
         console.log(response);
         weatherArray.push(await response.json())
         console.log(weatherArray);
+        displayTodaysWeather();
     });    
 }
 
-console.log(weatherArray.length);
-console.log((weatherArray[0].current.temp));
-console.log((weatherArray[0].current.wind_speed));
-console.log((weatherArray[0].current.humidity));
-console.log((weatherArray[0].current.uvi));
+// console.log(weatherArray.length);
+// console.log((weatherArray[0].current.temp));
+// console.log((weatherArray[0].current.wind_speed));
+// console.log((weatherArray[0].current.humidity));
+// console.log((weatherArray[0].current.uvi));
 
 var displayTodaysWeather = function() {
     // get todays data from weatherarray and display 
-    var createLi = document.createElement('li');
+    var createLi = document.createElement('p');
     for (var i = 0; i < weatherArray.length; i++) {
-        createLi.append((weatherArray[0].current.temp));
+        var tempLi = "Temparature: " + (weatherArray[0].current.temp);
+        createLi.append((tempLi));
+        var windLi = "Wind: " + (weatherArray[0].current.wind_speed);
+        createLi.append((windLi));
+        var humidityLi = "Humidity: " + (weatherArray[0].current.humidity);
+        createLi.append((humidityLi));
+        var uviLi = "UV Index :" + (weatherArray[0].current.uvi)
+        createLi.append((uviLi));
     }
+    // $("#todays-weather").html(createLi);
+    $("#city-list").html(createLi);
+    // $("#city-list").html(createLi);
+    // $("#city-list").html(createLi);
 }
-
 
 var localStrData = function(city) {
     // localStorage.setItem(JSON.stringify(city, weatherArray[0]));

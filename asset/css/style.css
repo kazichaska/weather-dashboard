@@ -1,24 +1,48 @@
 :root {
-    --primary: #ccdad1;
-    --secondary: #9caea9;
-    --tertiary: #788585;
-    --light-dark: #6f6866;
-    --dark: #38302e;
-    --border-radius: .3rem;
-  }
-  
-  * {
-    box-sizing: border-box;
-  }
-
-/* FLEX CONTENT */
-.flex-row {
-    display: flex;
-    flex-wrap: wrap;
+  --primary-color: #fce138;
+  --secondary-color: #024e76;
+  --tertiary-color: #39a6b2;
 }
 
-.flex-column {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1;
+}
+
+textarea{
+  background: transparent;
+  border: none;
+  resize: none;
+  color: #000000;
+  border-left: 1px solid rgb(51, 17, 145);
+  padding: 10px;
+}
+
+.jumbotron {
+  text-align: center;
+  background-color: transparent;
+  color: black;
+  border-radius: 0;
+  border-bottom: 10px solid black;
+}
+
+h3 {
+  padding-top: 10px;
+}
+
+#search {
+  padding-top: 5px;
+}
+
+.card {
+  padding-top: 8px;
+  margin-top: 5px;
+  border-radius: 2px solid green;
 }
