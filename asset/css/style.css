@@ -1,48 +1,71 @@
-:root {
-  --primary-color: #fce138;
-  --secondary-color: #024e76;
-  --tertiary-color: #39a6b2;
-}
-
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1;
-}
-
-textarea{
-  background: transparent;
-  border: none;
-  resize: none;
-  color: #000000;
-  border-left: 1px solid rgb(51, 17, 145);
-  padding: 10px;
-}
-
-.jumbotron {
-  text-align: center;
-  background-color: transparent;
-  color: black;
-  border-radius: 0;
-  border-bottom: 10px solid black;
-}
-
-h3 {
-  padding-top: 10px;
-}
-
-#search {
-  padding-top: 5px;
-}
-
-.card {
-  padding-top: 8px;
-  margin-top: 5px;
-  border-radius: 2px solid green;
-}
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  p {
+    font-size: 18px;
+    color: #2f5396;
+  }
+  
+  .navbar {
+    padding: 32px;
+    border-bottom: 1px solid #1f1f1f;
+    color: rgb(255, 255, 255);
+    background-color: #00308f;
+  }
+  
+  #search-box {
+    padding: 16px 32px;
+    border-right: 1px solid #1f1f1f;
+  }
+  
+  .list-group {
+    padding-top: 18px;
+  }
+  
+  #weather-detail {
+    padding: 32px;
+    background-image: linear-gradient(
+      to right top,
+      #dfe6e9,
+      #d9e8ed,
+      #d1ebf1,
+      #caedf3,
+      #c2f0f4
+    );
+  }
+  
+  #city-box {
+    border: 1px solid #1f1f1f;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #fff;
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .temp {
+    font-size: 3rem;
+    font-weight: bold;
+    font-family: "Oswald", sans-serif;
+  }
+  
+  .bold {
+    font-weight: bold;
+  }
+  #forecast {
+    padding: 32px 0;
+    text-align: center;
+  }
+  
+  .card-body {
+    border: 1px solid #1f1f1f;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 16px;
+  }
+  

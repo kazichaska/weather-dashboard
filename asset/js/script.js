@@ -4,7 +4,8 @@ var searchButton = $("#search")
 // document.querySelector("#btn");
 var cardEl = $("card");
 var cardContainer = $("#boxes");
-var todaysWeather = $("#todays-weather");
+// var todaysWeather = $("#todays-weather");
+var WeatherDetail = $("#weather-detail");
 var forecastEl = $("#forecast");
 var cityList = $(".city-list");
 var defaultCity = "Minneapolis";
@@ -13,6 +14,9 @@ var cities = JSON.parse(localStorage.getItem("city")) || [];
 $("#searchbtn").click(function() {
     console.log(cityInput.value);
     var city = cityInput.value;
+    var cityNameList = $("li").text(city);
+    cityNameList.addClass("list-group-item");
+    $("#list-group").prepend(cityNameList);
     getApi(city);
     //   localStorage.setItem(city, city);
     // localStrData(city);
@@ -136,7 +140,7 @@ var displayForcast = function(forecastData) {
     console.log(icon);
     var fiveIcon = document.createElement('img');
     fiveIcon.src =  `http://openweathermap.org/img/wn/${icon}@2x.png`
-    cityList.append(fiveIcon);
+    $('.fivecard').append(fiveIcon);
     // // check the path of name
     // fiveCityName.textContent = weatherArray[0].current.name;
     // fivecard.append(fiveCityName);
@@ -149,6 +153,10 @@ var displayForcast = function(forecastData) {
         var fiveDayWind = forecastData.daily[i].wind_speed;
         var fiveDayUvi = forecastData.daily[i].uvi;
         console.log(fiveDayTemp, fiveDayHumidity, fiveDayWind, fiveDayUvi);
+        $("#day-"+i).append(fiveDayTemp);
+        $("#day-"+i).append(fiveDayHumidity);
+        $("#day-"+i).append(fiveDayWind);
+        $("#day-"+i).append(fiveDayUvi);
     }
 }
 
