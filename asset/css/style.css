@@ -43,7 +43,8 @@
     border-radius: 16px;
     padding: 32px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: #fff;
+    background-color: darkblue;
+    color: white;
     text-align: center;
     margin: 0 auto;
   }
@@ -69,3 +70,23 @@
     margin-bottom: 16px;
   }
   
+  .card {
+      display: flex;
+      flex-direction: column;
+      border: 2px solid darkblue;
+      padding: 50px;
+      margin: 5px;
+      background-color: darkblue;
+      color: white;
+  }
+
+  .cardinfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cardimage {
+      width: 100%;
+  }
