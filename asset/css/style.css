@@ -10,7 +10,7 @@
     color: #2f5396;
   }
   
-  .navbar {
+  .navheader {
     padding: 32px;
     border-bottom: 1px solid #1f1f1f;
     color: rgb(255, 255, 255);
@@ -28,6 +28,8 @@
   
   #weather-detail {
     padding: 32px;
+    display: flex;
+    flex-direction: column;
     background-image: linear-gradient(
       to right top,
       #dfe6e9,
@@ -43,10 +45,10 @@
     border-radius: 16px;
     padding: 32px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: darkblue;
-    color: white;
+    /* background-color: darkblue; */
+    color: orange;
     text-align: center;
-    margin: 0 auto;
+    /* margin: 0 auto; */
   }
   
   .temp {
@@ -70,14 +72,12 @@
     margin-bottom: 16px;
   }
   
-  .card {
+  .cardweather {
       display: flex;
       flex-direction: column;
       border: 2px solid darkblue;
       padding: 50px;
       margin: 5px;
-      background-color: darkblue;
-      color: white;
   }
 
   .cardinfo {
@@ -89,4 +89,19 @@
 
   .cardimage {
       width: 100%;
+  }
+
+  #forecast {
+      display: flex;
+  }
+
+  .background {
+    background-image: linear-gradient(
+        to right top,
+        #dfe6e9,
+        #d9e8ed,
+        #d1ebf1,
+        #caedf3,
+        #c2f0f4
+      );
   }

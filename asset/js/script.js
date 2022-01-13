@@ -9,18 +9,19 @@ var weatherDetail = $("#weather-detail");
 var forecastEl = $("#forecast");
 var cityList = $(".city-list");
 var defaultCity = "Minneapolis";
-// var cities = JSON.parse(localStorage.getItem("city")) || [];
+// var cities = [];
 
 $("#searchbtn").click(function() {
     console.log(cityInput.value);
     var city = cityInput.value;
-    var cityNameList = $("li").text(city);
-    cityNameList.addClass("list-group-item");
-    $("#list-group").prepend(cityNameList);
+    // var cityNameList = $("li").text(city);
+    // cityNameList.addClass("list-group-item");
+    // $("#list-group").prepend(cityNameList);
     getApi(city);
-    //   localStorage.setItem(city, city);
+    // localStorage.setItem("city", JSON.stringify(city));
     // localStrData(city);
     displayStoredCities(city);
+    saveSearchCity(city);
 });
 
 // console.log($("#search"));
@@ -46,7 +47,7 @@ function getApi(city) {
 
 var weatherArray = [];
 async function getWeatherDetail(lat, lon, data) {
-    var requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&temperature=unit&appid=f34dabc58db5ff52b58f3ded309b23a6`;
+    var requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&temperature=unit&appid=f34dabc58db5ff52b58f3ded309b23a6`;
     // const response = await fetch(url);
     fetch(requestUrl)
     .then(async function(response) {
@@ -111,7 +112,7 @@ var displayTodaysWeather = function(weatherData, data) {
     // $(".city-list").replaceWith(createDiv);
     // $("#city-list").html(createLi);
     // $("#city-list").html(createLi);
-
+    localStorage.setItem("city", JSON.stringify(city));
 }
 
 // var localStrData = function(city) {
@@ -144,25 +145,29 @@ var displayForcast = function(forecastData, data) {
         var fiveDayWind = document.createElement('p');
         var fiveDayHumidity = document.createElement('p');
         var fiveDayUvi = document.createElement('p');
+        var fiveDaysDate = document.createElement('p');
         icon = forecastData.daily[i].weather[0].icon;
         console.log(icon);
         var fiveIcon = document.createElement('img');
         fiveIcon.src =  `http://openweathermap.org/img/wn/${icon}@2x.png`
-        fivecard.append(fiveIcon, fiveDayTemp, fiveDayWind, fiveDayHumidity, fiveDayUvi);
+        fivecard.append(fiveDaysDate,fiveIcon, fiveDayTemp, fiveDayWind, fiveDayHumidity, fiveDayUvi);
         // fiveCityName.textContent = data[0].name;
         $(".fivecard").append(fivecard);
-        fivecard.setAttribute("class", "card");
+        fivecard.setAttribute("class", "cardweather");
         fiveDayTemp.setAttribute("class", "cardinfo");
         fiveDayWind.setAttribute("class", "cardinfo");
         fiveDayHumidity.setAttribute("class", "cardinfo");
         fiveDayUvi.setAttribute("class", "cardinfo");
         fiveIcon.setAttribute("class", "cardimage");
+        fiveDaysDate.setAttribute("class", "datePlace");
+        var todaysDate = moment.unix(forecastData.daily[i].dt);
+        console.log(todaysDate.format('MM/DD/YYYY'));
+        fiveDaysDate.textContent = todaysDate;
         fiveDayTemp.textContent = "Temp: " + forecastData.daily[i].temp.day;
         fiveDayWind.textContent = "Wind: " + forecastData.daily[i].wind_speed;
         fiveDayHumidity.textContent = "Humidity: " + forecastData.daily[i].humidity;
         fiveDayUvi.textContent = "UVi: " + forecastData.daily[i].uvi;
         
-
         // // check the path of name
         // fiveCityName.textContent = weatherArray[0].current.name;
         // fivecard.append(fiveCityName);
@@ -173,8 +178,6 @@ var displayForcast = function(forecastData, data) {
         // foreCastCard.append(foreCastTitle);
         // foreCastTitle.textContent = forecastData.city;
         // $("#day-"+i).append(foreCastCard);
-        // var todaysDate = moment.unix(forecastData.daily[i].dt);
-        // console.log(todaysDate.format('MMMM Do YYYY'));
         // var fiveDayHumidity = forecastData.daily[i].humidity;
         // var fiveDayWind = forecastData.daily[i].wind_speed;
         // var fiveDayUvi = forecastData.daily[i].uvi;
@@ -186,11 +189,14 @@ var displayForcast = function(forecastData, data) {
     }
 }
 
-displayForcast();
+// displayForcast();
 
-var saveSearchCity = function() {
-    localStorage.setItem("city", JSON.stringify(city));
+var saveSearchCity = function(city) {
+    // localStorage.setItem("city", JSON.stringify(city));
+    JSON.parse(localStorage.getItem('city', (city)));
 }
+
+saveSearchCity();
 
 var showCity = function() {
     // JSON.parse(localStorage.getItem("city"));
