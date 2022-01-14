@@ -1,6 +1,5 @@
-var citySearch = document.querySelector("h3");
-var cityInput = document.querySelector("#city-input");
-var searchButton = $("#search")
+// var citySearch = document.querySelector("h3");
+// var searchButton = $("#search")
 // document.querySelector("#btn");
 var cardEl = $("card");
 var cardContainer = $("#boxes");
@@ -11,13 +10,21 @@ var cityList = $(".city-list");
 var defaultCity = "Minneapolis";
 var cities = JSON.parse(localStorage.getItem("city")) ? JSON.parse(localStorage.getItem("city")): [];
 
-$("#searchbtn").click(function() {
+var cityInput = document.querySelector("#city-input");
+
+var searchCity = function() {
     console.log(cityInput.value);
     var city = cityInput.value;
     cities.push(cityInput.value);
+    event.preventDefault();
     getApi(city);
     displayStoredCities(city);
     saveSearchCity(city);
+    showCity(cities);
+}
+
+$("#searchbtn").click(function() {
+    searchCity();
 });
 
 
@@ -60,10 +67,10 @@ var displayTodaysWeather = function(weatherData, data) {
     
     var icon = weatherData.current.weather[0].icon;
     // console.log(icon);
-    var imageEl = document.createElement('img');
-    imageEl.src =  `http://openweathermap.org/img/wn/${icon}@2x.png`
-    cityList.append(imageEl);
-    var createDiv = document.createElement('div');
+    // var imageEl = document.createElement('img');
+    // imageEl.src =  `http://openweathermap.org/img/wn/${icon}@2x.png`
+    // cityList.append(imageEl);
+    // var createDiv = document.createElement('div');
     var city = data[0].name;
     var temp = weatherData.current.temp;
     var humidity = weatherData.current.humidity;
@@ -73,9 +80,9 @@ var displayTodaysWeather = function(weatherData, data) {
     var fiveIcon = document.createElement('img');
     fiveIcon.src =  `http://openweathermap.org/img/wn/${icon}@2x.png`
     
-    var cityLi = document.createElement('h2');
-    var tempLi = document.createElement('p');
-    var windLi = document.createElement('p')
+    // var cityLi = document.createElement('h2');
+    // var tempLi = document.createElement('p');
+    var windLi = document.createElement('p').style.fontWeight = "500";
     var humidityLi = document.createElement('p');
     var uviLi = document.createElement('p');
     var todaysDate = moment.unix(weatherData.daily[0].dt);
@@ -83,18 +90,24 @@ var displayTodaysWeather = function(weatherData, data) {
     
     console.log(weatherData.daily[0].dt);
     // createDiv.append(city, tempLi, windLi, humidityLi, uviLi);
-    $("#city-box").append(todaysDate.textContent = dates);
+    $("#city-box").append(todaysDate.textContent = "(" +dates+ ")");
     $("#city-box").append(fiveIcon);
-    $("#city-box").append(windLi.textContent = "Wind : " + wind);
-    $("#city-box").append(humidityLi.textContent = "Humidity : " + humidity);
-    $("#city-box").append(uviLi.textContent =  "UV Index : " + uvi);
+    $("#city-box").append(windLi.textContent = " Wind : " + wind);
+    $("#city-box").append(humidityLi.textContent = " Humidity : " + humidity);
+    $("#city-box").append(uviLi.textContent =  " UV Index : " + uvi);
+    console.log(weatherData.current.uvi);
+    if(weatherData.current.uvi === 0 || weatherData.current.uvi <= 3){
+        console.log("Green");
+    } else if (weatherData.current.uvi === 4 || weatherData.current.uvi <= 6){
+        console.log("Yello"); 
+    } else
+        console.log("Red");
 }
-
 
 var displayStoredCities = function(city) {
     // for everything city in localsotrage append to DOM
     $("#city-box").empty();
-    var title = document.createElement('h1');
+    var title = document.createElement('h2');
     title.setAttribute("class", "title");
     $("#city-box").append(title);
     title.textContent = (city);
@@ -158,18 +171,13 @@ saveSearchCity();
 // window.onload = timedRefresh(20000);
 
 var showCity = function(cities) {
+    JSON.parse(localStorage.getItem("city"));
+    $(".list-group").empty();
     for (i = 0; i < cities?.length; i++) {
         var liCity = document.createElement('p');
         $(".list-group").append(liCity);
         liCity.textContent = cities[i];
         console.log(liCity);
+        liCity.addEventListener('click', searchCity);
     }
-
-}
-showCity(cities);
-
-var clickShowCity = function() {
-    $(".list-group, p").on("click", function(e) {
-        console.log(e.target);
-    });
 }
