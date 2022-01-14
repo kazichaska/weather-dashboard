@@ -78,8 +78,12 @@ var displayTodaysWeather = function(weatherData, data) {
     var windLi = document.createElement('p')
     var humidityLi = document.createElement('p');
     var uviLi = document.createElement('p');
-
+    var todaysDate = moment.unix(weatherData.daily[0].dt);
+    var dates = (todaysDate.format('MM/DD/YYYY'));
+    
+    console.log(weatherData.daily[0].dt);
     // createDiv.append(city, tempLi, windLi, humidityLi, uviLi);
+    $("#city-box").append(todaysDate.textContent = dates);
     $("#city-box").append(fiveIcon);
     $("#city-box").append(windLi.textContent = "Wind : " + wind);
     $("#city-box").append(humidityLi.textContent = "Humidity : " + humidity);
@@ -127,8 +131,8 @@ var displayForcast = function(forecastData, data) {
         fiveIcon.setAttribute("class", "cardimage");
         fiveDaysDate.setAttribute("class", "datePlace");
         var todaysDate = moment.unix(forecastData.daily[i].dt);
-        console.log(todaysDate.format('MM/DD/YYYY'));
-        fiveDaysDate.textContent = todaysDate;
+        var dates = (todaysDate.format('MM/DD/YYYY'));
+        fiveDaysDate.textContent = dates;
         fiveDayTemp.textContent = "Temp: " + forecastData.daily[i].temp.day;
         fiveDayWind.textContent = "Wind: " + forecastData.daily[i].wind_speed;
         fiveDayHumidity.textContent = "Humidity: " + forecastData.daily[i].humidity;
@@ -142,7 +146,7 @@ var displayForcast = function(forecastData, data) {
 
 var saveSearchCity = function(city) {
     localStorage.setItem("city", JSON.stringify(cities));
-    // JSON.parse(localStorage.getItem('city', (city)));
+    JSON.parse(localStorage.getItem('city', (city)));
     console.log(cities.length)
 }
 
