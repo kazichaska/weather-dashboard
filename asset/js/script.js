@@ -9,23 +9,17 @@ var weatherDetail = $("#weather-detail");
 var forecastEl = $("#forecast");
 var cityList = $(".city-list");
 var defaultCity = "Minneapolis";
-// var cities = [];
+var cities = JSON.parse(localStorage.getItem("city")) ? JSON.parse(localStorage.getItem("city")): [];
 
 $("#searchbtn").click(function() {
     console.log(cityInput.value);
     var city = cityInput.value;
-    // var cityNameList = $("li").text(city);
-    // cityNameList.addClass("list-group-item");
-    // $("#list-group").prepend(cityNameList);
+    cities.push(cityInput.value);
     getApi(city);
-    // localStorage.setItem("city", JSON.stringify(city));
-    // localStrData(city);
     displayStoredCities(city);
     saveSearchCity(city);
 });
 
-// console.log($("#search"));
-// console.log(document.querySelector("#city-input").value);
 
 function getApi(city) {
     var requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city ? city: defaultCity}&limit=5&appid=f34dabc58db5ff52b58f3ded309b23a6`
@@ -62,62 +56,36 @@ async function getWeatherDetail(lat, lon, data) {
     });    
 }
 
-// console.log(weatherArray.length);
-// console.log((weatherArray[0].current.temp));
-// console.log((weatherArray[0].current.wind_speed));
-// console.log((weatherArray[0].current.humidity));
-// console.log((weatherArray[0].current.uvi));
-
 var displayTodaysWeather = function(weatherData, data) {
-    // get todays data from weatherarray and display 
-    // var cityLi = city;
-    // console.log(city);
+    
     var icon = weatherData.current.weather[0].icon;
     // console.log(icon);
     var imageEl = document.createElement('img');
     imageEl.src =  `http://openweathermap.org/img/wn/${icon}@2x.png`
     cityList.append(imageEl);
     var createDiv = document.createElement('div');
-    // for (var i = 0; i < weatherArray.length; i++) {
-    //     var tempLi = document.createElement('p');
-    //     tempLi.textContent = "Temparature: " + (weatherArray[0].current.temp);
-    //     var windLi = document.createElement('p')
-    //     windLi.textContent = "Wind: " + (weatherArray[0].current.wind_speed);
-    //     var humidityLi = document.createElement('p');
-    //     humidityLi.textContent = "Humidity: " + (weatherArray[0].current.humidity);
-    //     var uviLi = document.createElement('p');
-    //     uviLi.textContent =  "UV Index: " + (weatherArray[0].current.uvi);
-    // }
     var city = data[0].name;
     var temp = weatherData.current.temp;
     var humidity = weatherData.current.humidity;
     var wind = weatherData.current.wind_speed;
     var uvi = weatherData.current.uvi;
     console.log(city, temp, humidity, wind, uvi);
+    var fiveIcon = document.createElement('img');
+    fiveIcon.src =  `http://openweathermap.org/img/wn/${icon}@2x.png`
     
     var cityLi = document.createElement('h2');
-    cityLi.textContent = "City: " + city;
     var tempLi = document.createElement('p');
-    tempLi.textContent = "Temparature: " + temp;
     var windLi = document.createElement('p')
-    windLi.textContent = "Wind: " + wind;
     var humidityLi = document.createElement('p');
-    humidityLi.textContent = "Humidity: " + humidity;
     var uviLi = document.createElement('p');
-    uviLi.textContent =  "UV Index: " + uvi;
 
     // createDiv.append(city, tempLi, windLi, humidityLi, uviLi);
-    createDiv.append(cityLi.textContent = "City: " + city);
-    // $("#todays-weather").html(createLi);
-    // $(".city-list").replaceWith(createDiv);
-    // $("#city-list").html(createLi);
-    // $("#city-list").html(createLi);
-    localStorage.setItem("city", JSON.stringify(city));
+    $("#city-box").append(fiveIcon);
+    $("#city-box").append(windLi.textContent = "Wind : " + wind);
+    $("#city-box").append(humidityLi.textContent = "Humidity : " + humidity);
+    $("#city-box").append(uviLi.textContent =  "UV Index : " + uvi);
 }
 
-// var localStrData = function(city) {
-//     localStorage.setItem("city", JSON.stringify(city));
-// }
 
 var displayStoredCities = function(city) {
     // for everything city in localsotrage append to DOM
@@ -132,8 +100,6 @@ var displayStoredCities = function(city) {
 // displayStoredCities();
 
 var displayForcast = function(forecastData, data) {
-    // get data from weatherarray and display weather for each forcast date
-    // var fivecard = $(".fivecard");
 
     $(".fivecard").empty();
     for ( i = 1; i <= 5; i++ ) {
@@ -168,39 +134,38 @@ var displayForcast = function(forecastData, data) {
         fiveDayHumidity.textContent = "Humidity: " + forecastData.daily[i].humidity;
         fiveDayUvi.textContent = "UVi: " + forecastData.daily[i].uvi;
         
-        // // check the path of name
-        // fiveCityName.textContent = weatherArray[0].current.name;
-        // fivecard.append(fiveCityName);
         console.log(forecastData);
-        // var foreCastCard = document.createElement("div");
-        // foreCastCard.setAttribute("class", "days");
-        // var foreCastTitle = document.createElement("h3");
-        // foreCastCard.append(foreCastTitle);
-        // foreCastTitle.textContent = forecastData.city;
-        // $("#day-"+i).append(foreCastCard);
-        // var fiveDayHumidity = forecastData.daily[i].humidity;
-        // var fiveDayWind = forecastData.daily[i].wind_speed;
-        // var fiveDayUvi = forecastData.daily[i].uvi;
-        // console.log(fiveDayTemp, fiveDayHumidity, fiveDayWind, fiveDayUvi);
-        // $("#day-"+i).append(fiveDayTemp, fiveDayHumidity, fiveDayWind, fiveDayUvi, fiveIcon);
-        // $("#day-"+i).append(fiveDayHumidity);
-        // $("#day-"+i).append(fiveDayWind);
-        // $("#day-"+i).append(fiveDayUvi);
     }
 }
 
 // displayForcast();
 
 var saveSearchCity = function(city) {
-    // localStorage.setItem("city", JSON.stringify(city));
-    JSON.parse(localStorage.getItem('city', (city)));
+    localStorage.setItem("city", JSON.stringify(cities));
+    // JSON.parse(localStorage.getItem('city', (city)));
+    console.log(cities.length)
 }
 
 saveSearchCity();
 
-var showCity = function() {
-    // JSON.parse(localStorage.getItem("city"));
-    // for (i = 0; i < 5; i++) {
-    //     createElement.
-    // }
+// function timedRefresh(timeoutPeriod) {
+// 	setTimeout("location.reload(true);",timeoutPeriod);
+// }
+// window.onload = timedRefresh(20000);
+
+var showCity = function(cities) {
+    for (i = 0; i < cities?.length; i++) {
+        var liCity = document.createElement('p');
+        $(".list-group").append(liCity);
+        liCity.textContent = cities[i];
+        console.log(liCity);
+    }
+
+}
+showCity(cities);
+
+var clickShowCity = function() {
+    $(".list-group, p").on("click", function(e) {
+        console.log(e.target);
+    });
 }

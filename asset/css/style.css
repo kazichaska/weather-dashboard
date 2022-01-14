@@ -23,7 +23,11 @@
   }
   
   .list-group {
-    padding-top: 18px;
+    padding-top: 10px;
+    border-radius: 20px;
+    text-align: center;
+    width: 100px;
+    color: orangered;
   }
   
   #weather-detail {
