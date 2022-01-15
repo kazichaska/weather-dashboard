@@ -1,8 +1,8 @@
 // var citySearch = document.querySelector("h3");
 // var searchButton = $("#search")
 // document.querySelector("#btn");
-var cardEl = $("card");
-var cardContainer = $("#boxes");
+// var cardEl = $("card");
+// var cardContainer = $("#boxes");
 // var todaysWeather = $("#todays-weather");
 var weatherDetail = $("#weather-detail");
 var forecastEl = $("#forecast");
@@ -12,9 +12,10 @@ var cities = JSON.parse(localStorage.getItem("city")) ? JSON.parse(localStorage.
 
 var cityInput = document.querySelector("#city-input");
 
-var searchCity = function() {
-    console.log(cityInput.value);
+function searchCity(city) {
+    console.log(city);
     var city = cityInput.value;
+    console.log(cityInput.value);
     var lowerCasedCity = city.toLowerCase();
     const foundCity = JSON.parse(localStorage.getItem("city"))?.find(savedCity => {
         return savedCity === city
@@ -35,7 +36,7 @@ var searchCity = function() {
 }
 
 $("#searchbtn").click(function() {
-    searchCity();
+    searchCity(cityInput.value);
 });
 
 
@@ -182,10 +183,6 @@ var savedSearchCity = function(city) {
 
 savedSearchCity();
 
-// function timedRefresh(timeoutPeriod) {
-// 	setTimeout("location.reload(true);",timeoutPeriod);
-// }
-// window.onload = timedRefresh(20000);
 
 var showCity = function(cities) {
     JSON.parse(localStorage.getItem("city"));
@@ -195,7 +192,10 @@ var showCity = function(cities) {
         $(".list-group").append(liCity);
         liCity.textContent = cities[i];
         console.log(liCity);
-        liCity.addEventListener('click', searchCity);
-    }
+        liCity.addEventListener('click', (e) => {
+            searchCity(e.target);
+            console.log(e.target.value);
+        })
     // $("#city-input").empty();
+    }
 }
