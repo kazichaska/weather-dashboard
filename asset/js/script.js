@@ -90,6 +90,7 @@ var displayTodaysWeather = function(weatherData, data) {
     var uvi = weatherData.current.uvi;
     // console.log(city, temp, humidity, wind, uvi);
     var fiveIcon = document.createElement('img');
+    fiveIcon.setAttribute("class", "icon");
     fiveIcon.src =  `http://openweathermap.org/img/wn/${icon}@2x.png`
     
     // var cityLi = document.createElement('h2');
@@ -106,13 +107,13 @@ var displayTodaysWeather = function(weatherData, data) {
     $("#city-box").append(fiveIcon);
     $("#city-box").append(windLi.textContent = " Wind : " + wind);
     $("#city-box").append(humidityLi.textContent = " Humidity : " + humidity);
-    uviLi.textContent =  " UV Index : ";
-    var uvIndex = document.createElement('p');
-    console.log(uvIndex);
-    uvIndex.innerHTML = uvi;
-    $("#city-box").append(uviLi.textContent + uvIndex.innerHTML);
+    // uviLi.textContent =  " UV Index : ";
+    // var uvIndex = document.createElement('p');
+    // console.log(uvIndex);
+    // uvIndex.innerHTML = uvi;
+    // $("#city-box").append(uviLi.textContent + uvIndex.innerHTML);
     // console.log(weatherData.current.uvi);
-    uviColor(weatherData, data, uvIndex);
+    uviColor(weatherData);
     // if(weatherData.current.uvi >= 0 && weatherData.current.uvi <= 3){
     //     // uvIndex.css("color", "green");
     //     uvIndex.setAttribute("class", "uviGreen");
@@ -127,14 +128,16 @@ var displayTodaysWeather = function(weatherData, data) {
     //     uvIndex.style.color = "red";
 }
 
-var uviColor = function(weatherData, data, uviLi) {
-
+var uviColor = function(weatherData) {
+    var uvInfo = document.createElement('p');
+    uvInfo.textContent = "UV Index:" + weatherData.current.uvi;
+    $("#city-box").append(uvInfo);
     if(weatherData.current.uvi >= 0 && weatherData.current.uvi <= 3){
-        uviLi.setAttribute("class", "uviGreen");
+        uvInfo.setAttribute("class", "uviGreen");
     } else if (weatherData.current.uvi >= 4 && weatherData.current.uvi <= 6){
-        uviLi.setAttribute("class", "uviYellow"); 
+        uvInfo.setAttribute("class", "uviYellow"); 
     } else
-        uviLi.setAttribute("class", "uviRed"); 
+        uvInfo.setAttribute("class", "uviRed"); 
 }
 
 
