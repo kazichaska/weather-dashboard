@@ -15,12 +15,23 @@ var cityInput = document.querySelector("#city-input");
 var searchCity = function() {
     console.log(cityInput.value);
     var city = cityInput.value;
-    cities.push(cityInput.value);
-    event.preventDefault();
-    getApi(city);
-    displayStoredCities(city);
-    saveSearchCity(city);
-    showCity(cities);
+    var lowerCasedCity = city.toLowerCase();
+    const foundCity = JSON.parse(localStorage.getItem("city"))?.find(savedCity => {
+        return savedCity === city
+    }) 
+    console.log(foundCity);
+    if(foundCity){
+        getApi(lowerCasedCity);
+        showCity(cities);
+        displayStoredCities(lowerCasedCity);
+        return
+    } else {
+        cities.push(lowerCasedCity);
+        savedSearchCity(lowerCasedCity);
+        getApi(lowerCasedCity);
+        showCity(cities);
+        displayStoredCities(lowerCasedCity);
+    }
 }
 
 $("#searchbtn").click(function() {
@@ -60,6 +71,7 @@ async function getWeatherDetail(lat, lon, data) {
         // console.log(data[0].name);
         displayTodaysWeather(tempArray, data);
         displayForcast(tempArray, data);
+        uviColor(tempArray, data);
     });    
 }
 
@@ -96,13 +108,18 @@ var displayTodaysWeather = function(weatherData, data) {
     $("#city-box").append(humidityLi.textContent = " Humidity : " + humidity);
     $("#city-box").append(uviLi.textContent =  " UV Index : " + uvi);
     console.log(weatherData.current.uvi);
+}
+
+var uviColor = function(weatherData, data) {
+    var uviLi = $(".city-box,#text")
     if(weatherData.current.uvi === 0 || weatherData.current.uvi <= 3){
-        console.log("Green");
+        uviLi.addClass("class", "uviGreen");
     } else if (weatherData.current.uvi === 4 || weatherData.current.uvi <= 6){
-        console.log("Yello"); 
+        console.log("Yellow"); 
     } else
         console.log("Red");
 }
+
 
 var displayStoredCities = function(city) {
     // for everything city in localsotrage append to DOM
@@ -157,13 +174,13 @@ var displayForcast = function(forecastData, data) {
 
 // displayForcast();
 
-var saveSearchCity = function(city) {
-    localStorage.setItem("city", JSON.stringify(cities));
-    JSON.parse(localStorage.getItem('city', (city)));
-    console.log(cities.length)
+var savedSearchCity = function(city) {
+        localStorage.setItem("city", JSON.stringify(cities));
+        JSON.parse(localStorage.getItem('city', (city)));
+        console.log(cities.length);
 }
 
-saveSearchCity();
+savedSearchCity();
 
 // function timedRefresh(timeoutPeriod) {
 // 	setTimeout("location.reload(true);",timeoutPeriod);
@@ -180,4 +197,5 @@ var showCity = function(cities) {
         console.log(liCity);
         liCity.addEventListener('click', searchCity);
     }
+    // $("#city-input").empty();
 }
