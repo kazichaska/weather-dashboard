@@ -153,7 +153,7 @@ var displayStoredCities = function(city) {
 var displayForcast = function(forecastData, data) {
 
     $(".fivecard").empty();
-    for ( i = 1; i <= 5; i++ ) {
+    for ( let i = 1; i <= 5; i++ ) {
         var fivecard = document.createElement("div");
         var fiveCityName = document.createElement("h4");
         var fiveIcon = document.createElement("img");

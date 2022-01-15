@@ -34,14 +34,6 @@
     padding: 32px;
     display: flex;
     flex-direction: column;
-    /* background-image: linear-gradient(
-      to right top,
-      #dfe6e9,
-      #d9e8ed,
-      #d1ebf1,
-      #caedf3,
-      #c2f0f4
-    ); */
   }
   
   #city-box {
@@ -50,7 +42,7 @@
     padding: 32px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: steelblue;
-    /* color: white; */
+    color: white;
     text-align:left;
     /* margin: 0 auto; */
   }
@@ -100,28 +92,15 @@
       display: flex;
   }
 
-  .background {
-    /* background-image: linear-gradient(
-        to right top,
-        #dfe6e9,
-        #d9e8ed,
-        #d1ebf1,
-        #caedf3,
-        #c2f0f4
-      ); */
-  }
 
   .uviGreen {
     color: green;
-    /* text-decoration: green; */
   }
 
   .uviYellow {
     color: yellow;
-    /* text-decoration: yellow; */
   }
 
   .uviRed {
     color: red;
-    /* text-decoration: red; */
   }
