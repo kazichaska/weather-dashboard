@@ -7,18 +7,18 @@ var cities = JSON.parse(localStorage.getItem("city")) ? JSON.parse(localStorage.
 var cityInput = document.querySelector("#city-input");
 
 function searchCity(city) {
-    console.log(city);
+    // console.log(city);
     if (cityInput.value.length > 0) {
         city = cityInput.value;
     } else if (cityInput.value == ""){
         city = city;
     }
-    console.log(cityInput.value);
+    // console.log(cityInput.value);
     var lowerCasedCity = city.toLowerCase();
     const foundCity = JSON.parse(localStorage.getItem("city"))?.find(savedCity => {
         return savedCity === city
     }) 
-    console.log(foundCity);
+    // console.log(foundCity);
     if(foundCity){
         getApi(lowerCasedCity);
         showCity(cities);
@@ -49,10 +49,10 @@ function getApi(city) {
         // console.log(data);
         const lat = data[0].lat;
         const lot = data[0].lon;
-        console.log(data[0].name);
+        // console.log(data[0].name);
         await getWeatherDetail(lat, lot, data)
     })
-    console.log(requestUrl);
+    // console.log(requestUrl);
 }
 
 // getApi();
@@ -64,7 +64,7 @@ async function getWeatherDetail(lat, lon, data) {
     fetch(requestUrl)
     .then(async function(response) {
         var tempArray = await response.json();
-        console.log(response);
+        // console.log(response);
         // weatherArray = [];
         // weatherArray.push(await response.json())
         // console.log(weatherArray);
@@ -88,7 +88,7 @@ var displayTodaysWeather = function(weatherData, data) {
     var humidity = weatherData.current.humidity;
     var wind = weatherData.current.wind_speed;
     var uvi = weatherData.current.uvi;
-    console.log(city, temp, humidity, wind, uvi);
+    // console.log(city, temp, humidity, wind, uvi);
     var fiveIcon = document.createElement('img');
     fiveIcon.src =  `http://openweathermap.org/img/wn/${icon}@2x.png`
     
@@ -100,7 +100,7 @@ var displayTodaysWeather = function(weatherData, data) {
     var todaysDate = moment.unix(weatherData.daily[0].dt);
     var dates = (todaysDate.format('MM/DD/YYYY'));
     
-    console.log(weatherData.daily[0].dt);
+    // console.log(weatherData.daily[0].dt);
     // createDiv.append(city, tempLi, windLi, humidityLi, uviLi);
     $("#city-box").append(todaysDate.textContent = "(" +dates+ ")");
     $("#city-box").append(fiveIcon);
@@ -111,7 +111,7 @@ var displayTodaysWeather = function(weatherData, data) {
     console.log(uvIndex);
     uvIndex.innerHTML = uvi;
     $("#city-box").append(uviLi.textContent + uvIndex.innerHTML);
-    console.log(weatherData.current.uvi);
+    // console.log(weatherData.current.uvi);
     uviColor(weatherData, data, uvIndex);
     // if(weatherData.current.uvi >= 0 && weatherData.current.uvi <= 3){
     //     // uvIndex.css("color", "green");
@@ -145,7 +145,7 @@ var displayStoredCities = function(city) {
     title.setAttribute("class", "title");
     $("#city-box").append(title);
     title.textContent = (city);
-    console.log(title);
+    // console.log(title);
 }
 
 // displayStoredCities();
@@ -164,7 +164,7 @@ var displayForcast = function(forecastData, data) {
         var fiveDayUvi = document.createElement('p');
         var fiveDaysDate = document.createElement('p');
         icon = forecastData.daily[i].weather[0].icon;
-        console.log(icon);
+        // console.log(icon);
         var fiveIcon = document.createElement('img');
         fiveIcon.src =  `http://openweathermap.org/img/wn/${icon}@2x.png`
         fivecard.append(fiveDaysDate,fiveIcon, fiveDayTemp, fiveDayWind, fiveDayHumidity, fiveDayUvi);
@@ -185,7 +185,7 @@ var displayForcast = function(forecastData, data) {
         fiveDayHumidity.textContent = "Humidity: " + forecastData.daily[i].humidity;
         fiveDayUvi.textContent = "UVi: " + forecastData.daily[i].uvi;
         
-        console.log(forecastData);
+        // console.log(forecastData);
     }
 }
 
@@ -194,7 +194,7 @@ var displayForcast = function(forecastData, data) {
 var savedSearchCity = function(city) {
         localStorage.setItem("city", JSON.stringify(cities));
         JSON.parse(localStorage.getItem('city', (city)));
-        console.log(cities.length);
+        // console.log(cities.length);
 }
 
 savedSearchCity();
@@ -207,7 +207,7 @@ var showCity = function(cities) {
         let liCity = document.createElement('p');
         $(".list-group").append(liCity);
         liCity.textContent = cities[i];
-        console.log(liCity);
+        // console.log(liCity);
         liCity.addEventListener('click', (e) => {
             searchCity(liCity.textContent);
             console.log(liCity.textContent);
