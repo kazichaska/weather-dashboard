@@ -14,7 +14,11 @@ var cityInput = document.querySelector("#city-input");
 
 function searchCity(city) {
     console.log(city);
-    var city = cityInput.value;
+    if (cityInput.value.length > 0) {
+        city = cityInput.value;
+    } else if (cityInput.value == ""){
+        city = city;
+    }
     console.log(cityInput.value);
     var lowerCasedCity = city.toLowerCase();
     const foundCity = JSON.parse(localStorage.getItem("city"))?.find(savedCity => {
@@ -37,6 +41,7 @@ function searchCity(city) {
 
 $("#searchbtn").click(function() {
     searchCity(cityInput.value);
+    cityInput.value = '';
 });
 
 
@@ -72,7 +77,7 @@ async function getWeatherDetail(lat, lon, data) {
         // console.log(data[0].name);
         displayTodaysWeather(tempArray, data);
         displayForcast(tempArray, data);
-        uviColor(tempArray, data);
+        // uviColor(tempArray, data);
     });    
 }
 
@@ -107,18 +112,35 @@ var displayTodaysWeather = function(weatherData, data) {
     $("#city-box").append(fiveIcon);
     $("#city-box").append(windLi.textContent = " Wind : " + wind);
     $("#city-box").append(humidityLi.textContent = " Humidity : " + humidity);
-    $("#city-box").append(uviLi.textContent =  " UV Index : " + uvi);
+    uviLi.textContent =  " UV Index : ";
+    var uvIndex = document.createElement('p');
+    console.log(uvIndex);
+    uvIndex.innerHTML = uvi;
+    $("#city-box").append(uviLi.textContent + uvIndex.innerHTML);
     console.log(weatherData.current.uvi);
+    uviColor(weatherData, data, uvIndex);
+    // if(weatherData.current.uvi >= 0 && weatherData.current.uvi <= 3){
+    //     // uvIndex.css("color", "green");
+    //     uvIndex.setAttribute("class", "uviGreen");
+    //     uvIndex.style.color = "green";
+    // } else if (weatherData.current.uvi >= 4 && weatherData.current.uvi <= 6){
+    //     // uvIndex.css("color", "yellow");
+    //     uvIndex.setAttribute("class", "uviYellow"); 
+    //     uvIndex.style.color = "yellow";
+    // } else
+    //     // uvIndex.css("color", "red");
+    //     uvIndex.setAttribute("class", "uviRed"); 
+    //     uvIndex.style.color = "red";
 }
 
-var uviColor = function(weatherData, data) {
-    var uviLi = $(".city-box,#text")
-    if(weatherData.current.uvi === 0 || weatherData.current.uvi <= 3){
-        uviLi.addClass("class", "uviGreen");
-    } else if (weatherData.current.uvi === 4 || weatherData.current.uvi <= 6){
-        console.log("Yellow"); 
+var uviColor = function(weatherData, data, uviLi) {
+
+    if(weatherData.current.uvi >= 0 && weatherData.current.uvi <= 3){
+        uviLi.setAttribute("class", "uviGreen");
+    } else if (weatherData.current.uvi >= 4 && weatherData.current.uvi <= 6){
+        uviLi.setAttribute("class", "uviYellow"); 
     } else
-        console.log("Red");
+        uviLi.setAttribute("class", "uviRed"); 
 }
 
 
@@ -187,14 +209,14 @@ savedSearchCity();
 var showCity = function(cities) {
     JSON.parse(localStorage.getItem("city"));
     $(".list-group").empty();
-    for (i = 0; i < cities?.length; i++) {
-        var liCity = document.createElement('p');
+    for (let i = 0; i < cities?.length; i++) {
+        let liCity = document.createElement('p');
         $(".list-group").append(liCity);
         liCity.textContent = cities[i];
         console.log(liCity);
         liCity.addEventListener('click', (e) => {
-            searchCity(e.target);
-            console.log(e.target.value);
+            searchCity(liCity.textContent);
+            console.log(liCity.textContent);
         })
     // $("#city-input").empty();
     }
