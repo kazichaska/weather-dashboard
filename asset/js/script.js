@@ -1,9 +1,3 @@
-// var citySearch = document.querySelector("h3");
-// var searchButton = $("#search")
-// document.querySelector("#btn");
-// var cardEl = $("card");
-// var cardContainer = $("#boxes");
-// var todaysWeather = $("#todays-weather");
 var weatherDetail = $("#weather-detail");
 var forecastEl = $("#forecast");
 var cityList = $(".city-list");
