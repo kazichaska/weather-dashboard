@@ -370,6 +370,8 @@ var displayForcast = function(forecastData, data) {
 
         var fivecard = document.createElement("div");
         fivecard.setAttribute("class", "cardweather");
+        fivecard.style.cursor = "pointer";
+        fivecard.setAttribute("data-index", i); // Store the index for later use
         
         var fiveDaysDate = document.createElement('p');
         fiveDaysDate.setAttribute("class", "datePlace");
@@ -395,6 +397,11 @@ var displayForcast = function(forecastData, data) {
         // Append elements to card
         fivecard.append(fiveDaysDate, fiveIcon, fiveDayTemp, fiveDayWind, fiveDayHumidity);
         
+        // Add click event to show details
+        fivecard.addEventListener('click', () => {
+            showWeatherDetails(forecast, data[0].name);
+        });
+        
         // Add card to container
         $(".fivecard").append(fivecard);
         
@@ -404,6 +411,153 @@ var displayForcast = function(forecastData, data) {
         fiveDaysDate.textContent = dates;
     }
 }
+
+// ==================== WEATHER DETAILS MODAL ====================
+function showWeatherDetails(forecast, cityName) {
+    const modal = document.getElementById('weather-details-modal');
+    const detailsBody = document.getElementById('weather-details-body');
+    
+    const temp = Math.round(forecast.main.temp);
+    const feelsLike = Math.round(forecast.main.feels_like);
+    const tempMin = Math.round(forecast.main.temp_min);
+    const tempMax = Math.round(forecast.main.temp_max);
+    const humidity = forecast.main.humidity;
+    const pressure = forecast.main.pressure;
+    const wind = Math.round(forecast.wind.speed);
+    const clouds = forecast.clouds.all;
+    const description = forecast.weather[0].description;
+    const icon = forecast.weather[0].icon;
+    const date = moment(forecast.dt_txt).format('dddd, MMMM DD, YYYY');
+    const time = moment(forecast.dt_txt).format('h:mm A');
+    
+    // Generate detailed insight
+    let insight = '';
+    if (temp < 32) {
+        insight = `❄️ Freezing conditions expected! Stay indoors and keep warm. If you must go out, dress in layers.`;
+    } else if (temp < 50) {
+        insight = `🧥 Cold weather ahead. A warm jacket is recommended. Good weather for indoor activities.`;
+    } else if (temp < 70) {
+        insight = `😊 Pleasant weather conditions. Perfect for outdoor activities like walking or jogging.`;
+    } else if (temp < 85) {
+        insight = `☀️ Warm and comfortable. Great for outdoor plans, but don't forget sunscreen!`;
+    } else {
+        insight = `🔥 Very hot conditions! Stay hydrated, wear light clothing, and limit outdoor exposure during peak hours.`;
+    }
+    
+    if (humidity > 80) {
+        insight += ` High humidity may make it feel warmer than it actually is.`;
+    }
+    
+    if (wind > 15) {
+        insight += ` Strong winds expected - secure outdoor items.`;
+    }
+    
+    detailsBody.innerHTML = `
+        <div class="weather-details-header">
+            <img src="https://openweathermap.org/img/wn/${icon}@4x.png" class="weather-details-icon" alt="${description}">
+            <div class="weather-details-title-section">
+                <h2 class="weather-details-date">${date}</h2>
+                <p class="weather-details-description">${description} • ${time}</p>
+            </div>
+        </div>
+        
+        <div class="weather-details-grid">
+            <div class="weather-detail-item">
+                <div class="weather-detail-label">
+                    <i class="fas fa-thermometer-half"></i>
+                    Temperature
+                </div>
+                <p class="weather-detail-value">${temp}°F</p>
+            </div>
+            
+            <div class="weather-detail-item">
+                <div class="weather-detail-label">
+                    <i class="fas fa-temperature-arrow-down"></i>
+                    Feels Like
+                </div>
+                <p class="weather-detail-value">${feelsLike}°F</p>
+            </div>
+            
+            <div class="weather-detail-item">
+                <div class="weather-detail-label">
+                    <i class="fas fa-arrow-up"></i>
+                    High / Low
+                </div>
+                <p class="weather-detail-value">${tempMax}° / ${tempMin}°</p>
+            </div>
+            
+            <div class="weather-detail-item">
+                <div class="weather-detail-label">
+                    <i class="fas fa-droplet"></i>
+                    Humidity
+                </div>
+                <p class="weather-detail-value">${humidity}%</p>
+            </div>
+            
+            <div class="weather-detail-item">
+                <div class="weather-detail-label">
+                    <i class="fas fa-wind"></i>
+                    Wind Speed
+                </div>
+                <p class="weather-detail-value">${wind} MPH</p>
+            </div>
+            
+            <div class="weather-detail-item">
+                <div class="weather-detail-label">
+                    <i class="fas fa-gauge-high"></i>
+                    Pressure
+                </div>
+                <p class="weather-detail-value">${pressure} mb</p>
+            </div>
+            
+            <div class="weather-detail-item">
+                <div class="weather-detail-label">
+                    <i class="fas fa-cloud"></i>
+                    Cloudiness
+                </div>
+                <p class="weather-detail-value">${clouds}%</p>
+            </div>
+            
+            <div class="weather-detail-item">
+                <div class="weather-detail-label">
+                    <i class="fas fa-location-dot"></i>
+                    Location
+                </div>
+                <p class="weather-detail-value" style="font-size: 18px;">${cityName}</p>
+            </div>
+        </div>
+        
+        <div class="weather-detail-insight">
+            <h4 class="weather-detail-insight-title">
+                <i class="fas fa-lightbulb"></i>
+                Weather Insight
+            </h4>
+            <p class="weather-detail-insight-text">${insight}</p>
+        </div>
+    `;
+    
+    modal.classList.add('active');
+}
+
+// Close weather details modal
+document.addEventListener('DOMContentLoaded', () => {
+    const weatherModal = document.getElementById('weather-details-modal');
+    const weatherModalClose = document.querySelector('.weather-modal-close');
+    
+    if (weatherModalClose) {
+        weatherModalClose.addEventListener('click', () => {
+            weatherModal.classList.remove('active');
+        });
+    }
+    
+    if (weatherModal) {
+        weatherModal.addEventListener('click', (e) => {
+            if (e.target === weatherModal) {
+                weatherModal.classList.remove('active');
+            }
+        });
+    }
+});
 
 // displayForcast();
 

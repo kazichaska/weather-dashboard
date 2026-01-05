@@ -817,6 +817,187 @@ body {
   margin: 0;
 }
 
+/* ==================== WEATHER DETAILS MODAL ==================== */
+.weather-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  padding: 20px;
+}
+
+.weather-modal.active {
+  display: flex;
+}
+
+.weather-modal-content {
+  background: var(--card-bg);
+  border-radius: 24px;
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  border: 2px solid rgba(131, 56, 236, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+.weather-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 32px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.weather-modal-close:hover {
+  background: rgba(131, 56, 236, 0.1);
+  color: var(--neon-purple);
+  transform: rotate(90deg);
+}
+
+.weather-details-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.weather-details-icon {
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.1));
+}
+
+.weather-details-title-section {
+  flex: 1;
+}
+
+.weather-details-date {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 8px 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.weather-details-description {
+  font-size: 18px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.weather-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.weather-detail-item {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05));
+  padding: 20px;
+  border-radius: 16px;
+  border: 2px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.weather-detail-item:hover {
+  border-color: rgba(131, 56, 236, 0.3);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.weather-detail-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.weather-detail-label i {
+  background: var(--vibrant-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 16px;
+}
+
+.weather-detail-value {
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.weather-detail-insight {
+  background: linear-gradient(135deg, rgba(131, 56, 236, 0.08), rgba(0, 245, 255, 0.08));
+  padding: 20px;
+  border-radius: 16px;
+  border-left: 4px solid;
+  border-image: linear-gradient(180deg, var(--neon-purple), var(--neon-cyan)) 1;
+}
+
+.weather-detail-insight-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.weather-detail-insight-title i {
+  background: var(--vibrant-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.weather-detail-insight-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
 /* ==================== UTILITY CLASSES ==================== */
 .uviGreen {
   color: #10b981;
