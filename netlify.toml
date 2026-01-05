@@ -1,0 +1,53 @@
+# Netlify Configuration File for WeatherPulse
+
+[build]
+  # No build command needed for static site
+  command = ""
+  publish = "."
+
+# Redirect rules
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for better performance and security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Cache rules for static assets
+[[headers]]
+  for = "/asset/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/asset/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/asset/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# HTML cache (shorter duration)
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+# Environment variables (if needed in future)
+[context.production.environment]
+  # Add any environment variables here
+
+# Build context for development
+[context.development]
+  command = ""
+  publish = "."

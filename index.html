@@ -4,65 +4,204 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>WeatherPulse - Real-Time Weather Dashboard with AI Insights</title>
+    <meta name="description" content="WeatherPulse is a cutting-edge weather dashboard providing real-time weather data, 5-day forecasts, and AI-powered weather insights. Get accurate weather predictions for any city worldwide with beautiful visualization and detailed analytics.">
+    <meta name="keywords" content="weather app, real-time weather, weather forecast, weather dashboard, AI weather, meteorological data, temperature, humidity, wind speed, weather prediction, 5-day forecast, global weather">
+    <meta name="author" content="Kazi Islam">
+    <meta name="theme-color" content="#667eea">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://weather-dashboard.example.com/">
+    <meta property="og:title" content="WeatherPulse - Real-Time Weather Dashboard with AI Insights">
+    <meta property="og:description" content="Get real-time weather data, 5-day forecasts, and AI-powered weather insights. Beautiful, modern weather dashboard for any city worldwide.">
+    <meta property="og:image" content="https://weather-dashboard.example.com/og-weather.png">
+    <meta property="og:site_name" content="WeatherPulse">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://weather-dashboard.example.com/">
+    <meta property="twitter:title" content="WeatherPulse - Real-Time Weather Dashboard with AI Insights">
+    <meta property="twitter:description" content="Get real-time weather data, 5-day forecasts, and AI-powered weather insights. Beautiful, modern weather dashboard for any city worldwide.">
+    <meta property="twitter:image" content="https://weather-dashboard.example.com/og-weather.png">
+    
+    <!-- Additional SEO -->
+    <meta name="canonical" content="https://weather-dashboard.example.com/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%23667eea'>☀️</text></svg>">
+    
+    <!-- Stylesheets -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./asset/css/style.css">
-    <title>Weather Daahboard</title>
+    
+    <!-- Structured Data / Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "WeatherPulse",
+      "description": "Real-Time Weather Dashboard with AI Insights",
+      "url": "https://weather-dashboard.example.com",
+      "applicationCategory": "Weather",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Kazi Islam"
+      }
+    }
+    </script>
 </head>
 <body>
-
+    <!-- Navigation Header -->
     <nav class="navbar-expand-sm navheader">
-        <h1><i class="fas fa-cloud-sun-rain"></i> <span class="bold">Weather</span> Dashboard</h1>
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-cloud-sun-rain"></i>
+                <span class="brand-text">Weather<span class="brand-accent">Pulse</span></span>
+            </div>
+            <p class="nav-subtitle">Real-Time Weather Intelligence</p>
+        </div>
     </nav>
 
-    <div class="container-fluid">
-        <!-- Container begins here -->
-        <div class="container-fluid main-div d-flex">
-            <div id="search">
-                <h3>Search for a City:</h3>
-                <div class="input-group">
-                    <input type="text" name="searchcity" id="city-input">
-                    <!-- <div class="input-group-append"></div> -->
-                    <button id="searchbtn" class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+    <div class="main-wrapper">
+        <!-- Sidebar - Search Section -->
+        <aside class="sidebar">
+            <div class="search-section">
+                <h3 class="search-title">Find Weather</h3>
+                <p class="search-subtitle">Search for any city worldwide</p>
+                
+                <div class="search-input-wrapper">
+                    <input 
+                        type="text" 
+                        id="city-input" 
+                        class="search-input" 
+                        placeholder="Enter city name..."
+                        autocomplete="off"
+                        aria-label="Search city"
+                    >
+                    <button id="searchbtn" class="search-btn" type="button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
 
-                <!--List of Cities Shows here-->
-                <div id="city-list">
-                    <ul class="list-group">
+                <!-- Recent Searches -->
+                <div class="recent-searches">
+                    <h4 class="recent-title">Recent Searches</h4>
+                    <ul class="list-group recent-list">
                     </ul>
                 </div>
             </div>
-            <div class="d-flex flex-column background">
+        </aside>
 
-                <!-- Weather Div-->
-                <div id="weather-detail" class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Current Weather Section -->
+            <section id="weather-detail" class="weather-section">
+                <div id="city-box" class="current-weather-card">
+                    <!-- Current weather content dynamically inserted here -->
+                </div>
+            </section>
 
-                    <!-- Searched City Current Weather Div-->
-                    <div id="city-box">
+            <!-- 5-Day Forecast Section -->
+            <section id="five-day" class="forecast-section">
+                <div class="forecast-header">
+                    <h2 class="forecast-title">
+                        <i class="fas fa-calendar-alt"></i> 5-Day Forecast
+                    </h2>
+                    <p class="forecast-subtitle">Coming days weather prediction</p>
+                </div>
+                
+                <div class="forecast-container">
+                    <div id="forecast" class="forecast-cards">
+                        <div class="fivecard"></div>
                     </div>
                 </div>
-                <div class="d-flex flex-column" id="five-day">
-                    <h2>5-Day Forecast:</h2>
-                    <!-- <p>This is where block of 5-day forcast would go</p> -->
-                    <div class="col-12">
-                    
-                            <div id="forecast" class="container-fluid">
-                                <div class="row">
-                                    <div class="fivecard d-flex">
-                                    
-                                    </div>
-                                </div>
-                            </div>
+            </section>
+
+            <!-- AI Insights Section -->
+            <section id="ai-insights" class="ai-insights-section">
+                <div class="ai-insights-card">
+                    <div class="ai-insights-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>AI Weather Insights</h3>
                     </div>
+                    <p id="ai-insights-content" class="ai-insights-text">
+                        Search for a city to get AI-powered weather insights and recommendations.
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Contact Developer Floating Button -->
+    <div class="contact-developer-container">
+        <button id="contact-toggle" class="contact-btn" aria-label="Contact Developer" title="Contact Developer">
+            <i class="fas fa-envelope"></i>
+        </button>
+        
+        <!-- Contact Modal -->
+        <div id="contact-modal" class="contact-modal">
+            <div class="contact-modal-content">
+                <button class="contact-close" aria-label="Close contact form">&times;</button>
+                <h3 class="contact-modal-title">Get In Touch</h3>
+                <p class="contact-modal-subtitle">Have feedback? Found a bug? Let me know!</p>
+                
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            name="name" 
+                            placeholder="Your Name" 
+                            required
+                            class="form-input"
+                            aria-label="Name"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your Email" 
+                            required
+                            class="form-input"
+                            aria-label="Email"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <textarea 
+                            name="message" 
+                            placeholder="Your Message" 
+                            required
+                            class="form-input"
+                            rows="4"
+                            aria-label="Message"
+                        ></textarea>
+                    </div>
+                    <button type="submit" class="contact-submit-btn">Send Message</button>
+                    <p class="contact-note">This sends directly to my inbox via Formspree.</p>
+                </form>
+                
+                <div id="contact-success" class="contact-success" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Thank you for reaching out! I'll get back to you soon.</p>
                 </div>
             </div>
         </div>
     </div>
-      
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="./asset/js/script.js"></script>
+    <script src="./asset/js/script.js"></script>
 </body>
 </html>
