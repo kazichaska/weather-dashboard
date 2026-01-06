@@ -467,7 +467,7 @@ body {
 
 #city-box p {
   font-size: 15px;
-  color: var(--text-secondary);
+  color: #111827;
   margin: 0;
   font-weight: 600;
   display: flex;
@@ -476,9 +476,9 @@ body {
   gap: 10px;
   padding: 12px 14px;
   border-radius: 14px;
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72));
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
 .metric {
@@ -489,13 +489,13 @@ body {
 }
 
 .metric-label {
-  color: rgba(255, 255, 255, 0.78);
+  color: #4b5563;
   font-weight: 600;
   letter-spacing: 0.2px;
 }
 
 .metric-value {
-  color: #fff;
+  color: #0f172a;
   font-size: 18px;
   font-weight: 800;
 }
