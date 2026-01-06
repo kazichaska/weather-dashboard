@@ -316,8 +316,9 @@ body {
   background: var(--card-bg);
   border-radius: 24px;
   padding: 40px;
-  box-shadow: var(--shadow-lg);
-  border: 2px solid rgba(102, 126, 234, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22), 0 0 40px rgba(14, 165, 233, 0.25);
+  border: 2px solid transparent;
+  border-image: linear-gradient(120deg, rgba(14, 165, 233, 0.8), rgba(99, 102, 241, 0.65), rgba(34, 211, 238, 0.7)) 1;
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
@@ -330,10 +331,31 @@ body {
   right: -50%;
   width: 400px;
   height: 400px;
-  background: var(--vibrant-gradient);
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, rgba(34, 211, 238, 0) 60%);
   border-radius: 50%;
-  opacity: 0.08;
+  opacity: 0.25;
   animation: float 8s ease-in-out infinite;
+}
+
+.current-weather-card::after {
+  content: '';
+  position: absolute;
+  inset: 16px;
+  border-radius: 18px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0)),
+              linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+              linear-gradient(0deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: auto, 120px 120px, 120px 120px;
+  background-position: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  opacity: 0.85;
+  animation: scanlines 14s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanlines {
+  0% { background-position: center, 0 0, 0 0; }
+  100% { background-position: center, 120px 0, 0 120px; }
 }
 
 @keyframes float {
@@ -344,7 +366,7 @@ body {
 #city-box {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 22px;
   align-items: start;
   position: relative;
   z-index: 1;
@@ -353,44 +375,134 @@ body {
 @media (max-width: 768px) {
   #city-box {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 18px;
   }
 }
 
 .title {
-  font-size: 36px;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
+  font-size: 38px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1f2937, #4338ca);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  color: #1f2937;
   margin: 0;
   font-family: 'Poppins', sans-serif;
   grid-column: 1 / -1;
+  letter-spacing: -0.5px;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.hero-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .icon {
-  width: 120px;
-  height: 120px;
-  margin: -20px 0 0 -20px;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.1));
+  width: 140px;
+  height: 140px;
+  margin: 0;
+  padding: 14px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.26), 0 0 36px rgba(255, 0, 110, 0.35), 0 0 48px rgba(131, 56, 236, 0.35);
+  filter: drop-shadow(0 10px 30px rgba(14, 165, 233, 0.28));
   animation: float-bounce 3s ease-in-out infinite;
 }
 
+.hero-icon {
+  justify-self: start;
+  position: relative;
+}
+
+.date-chip, .desc-chip {
+  justify-self: start;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.desc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.25), rgba(131, 56, 236, 0.2));
+  text-transform: capitalize;
+}
+
 .weather-info {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(99, 102, 241, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18), 0 0 24px rgba(14, 165, 233, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.weather-info::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.2), transparent 50%);
+  pointer-events: none;
+}
+
+.info-left, .info-right {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 #city-box p {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-secondary);
   margin: 0;
-  font-weight: 500;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.metric {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.metric-label {
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.metric-value {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.metric strong {
+  color: #0ea5e9;
+  font-weight: 800;
 }
 
 #city-box p strong {
@@ -580,9 +692,22 @@ body {
 .cardimage {
   width: 100%;
   height: auto;
-  max-width: 100px;
+  max-width: 120px;
   margin: 0 auto;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+  padding: 10px;
+  border-radius: 18px;
+  background: radial-gradient(circle at 30% 30%, rgba(79, 172, 254, 0.35), rgba(0, 245, 255, 0.15)),
+              linear-gradient(135deg, rgba(255, 0, 110, 0.25), rgba(131, 56, 236, 0.35));
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15), 0 0 25px rgba(79, 172, 254, 0.25);
+  filter: drop-shadow(0 6px 14px rgba(255, 0, 110, 0.18));
+  transform: translateY(0);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.cardweather:hover .cardimage {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.18), 0 0 35px rgba(255, 0, 110, 0.35);
+  filter: drop-shadow(0 10px 20px rgba(79, 172, 254, 0.28));
 }
 
 .cardinfo {

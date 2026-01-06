@@ -261,51 +261,66 @@ var displayTodaysWeather = function(weatherData, data) {
 
     // Create and append city name
     var cityTitle = document.createElement('h2');
-    cityTitle.setAttribute("class", "title");
+    cityTitle.setAttribute("class", "title hero-title");
     cityTitle.textContent = city;
     $("#city-box").append(cityTitle);
 
     // Create and append weather icon
     var weatherIcon = document.createElement('img');
-    weatherIcon.setAttribute("class", "icon");
+    weatherIcon.setAttribute("class", "icon hero-icon");
     weatherIcon.src = `https://openweathermap.org/img/wn/${icon}@4x.png`;
     
     // Get the date
     var todaysDate = moment(currentWeather.dt_txt);
     var dates = todaysDate.format('MMM DD, YYYY');
     
+    // Description
+    var description = currentWeather.weather?.[0]?.description || '';
+
     // Create date element
     var dateEl = document.createElement('p');
     dateEl.textContent = `${dates}`;
+    dateEl.className = 'date-chip';
     dateEl.style.gridColumn = '1 / -1';
-    dateEl.style.fontSize = '14px';
-    dateEl.style.color = '#718096';
+    
+    // Create description chip
+    var descEl = document.createElement('p');
+    descEl.textContent = description;
+    descEl.className = 'desc-chip';
+    descEl.style.gridColumn = '1 / -1';
+    descEl.style.textTransform = 'capitalize';
     
     // Create weather info container
     var weatherInfoLeft = document.createElement('div');
-    weatherInfoLeft.className = 'weather-info';
+    weatherInfoLeft.className = 'weather-info info-left';
     
     var tempEl = document.createElement('p');
-    tempEl.innerHTML = `<i class="fas fa-thermometer-half"></i><strong>Temperature:</strong> ${Math.round(temp)}°F`;
+    tempEl.className = 'metric';
+    tempEl.innerHTML = `<span class="metric-label">Temperature</span><span class="metric-value">${Math.round(temp)}°F</span>`;
     
     var feelsLikeEl = document.createElement('p');
-    feelsLikeEl.innerHTML = `<i class="fas fa-wind"></i><strong>Feels Like:</strong> ${Math.round(feelsLike)}°F`;
+    feelsLikeEl.className = 'metric';
+    feelsLikeEl.innerHTML = `<span class="metric-label">Feels Like</span><span class="metric-value">${Math.round(feelsLike)}°F</span>`;
     
     var pressureEl = document.createElement('p');
-    pressureEl.innerHTML = `<i class="fas fa-gauge-high"></i><strong>Pressure:</strong> ${pressure} mb`;
+    pressureEl.className = 'metric';
+    pressureEl.innerHTML = `<span class="metric-label">Pressure</span><span class="metric-value">${pressure} mb</span>`;
     
     // Create weather info container right
     var weatherInfoRight = document.createElement('div');
-    weatherInfoRight.className = 'weather-info';
+    weatherInfoRight.className = 'weather-info info-right';
     
     var windEl = document.createElement('p');
-    windEl.innerHTML = `<i class="fas fa-fan"></i><strong>Wind Speed:</strong> ${Math.round(wind)} MPH`;
+    windEl.className = 'metric';
+    windEl.innerHTML = `<span class="metric-label">Wind</span><span class="metric-value">${Math.round(wind)} MPH</span>`;
     
     var humidityEl = document.createElement('p');
-    humidityEl.innerHTML = `<i class="fas fa-droplet"></i><strong>Humidity:</strong> ${humidity}%`;
+    humidityEl.className = 'metric';
+    humidityEl.innerHTML = `<span class="metric-label">Humidity</span><span class="metric-value">${humidity}%</span>`;
     
     var cloudsEl = document.createElement('p');
-    cloudsEl.innerHTML = `<i class="fas fa-cloud"></i><strong>Cloudiness:</strong> ${cloudiness}%`;
+    cloudsEl.className = 'metric';
+    cloudsEl.innerHTML = `<span class="metric-label">Cloudiness</span><span class="metric-value">${cloudiness}%</span>`;
     
     // Append left info
     weatherInfoLeft.append(tempEl, feelsLikeEl, pressureEl);
@@ -314,7 +329,7 @@ var displayTodaysWeather = function(weatherData, data) {
     weatherInfoRight.append(windEl, humidityEl, cloudsEl);
     
     // Append all elements in the correct structure
-    $("#city-box").append(dateEl, weatherIcon);
+    $("#city-box").append(dateEl, descEl, weatherIcon);
     $("#city-box").append(weatherInfoLeft);
     $("#city-box").append(weatherInfoRight);
 }
