@@ -1,24 +1,25 @@
 /* ==================== GLOBAL STYLES ==================== */
 :root {
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --vibrant-gradient: linear-gradient(135deg, #ff006e 0%, #8338ec 50%, #3a86ff 100%);
-  --neon-pink: #ff006e;
-  --neon-purple: #8338ec;
-  --neon-cyan: #00f5ff;
-  --dark-bg: #0f1419;
-  --card-bg: rgba(255, 255, 255, 0.95);
+  /* Modern color palette */
+  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --secondary-gradient: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
+  --accent-gradient: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+  --vibrant-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+  --neon-pink: #ec4899;
+  --neon-purple: #7c3aed;
+  --neon-cyan: #06b6d4;
+  --dark-bg: #0f172a;
+  --card-bg: rgba(255, 255, 255, 0.98);
   --light-bg: #f8fafc;
-  --text-primary: #1a202c;
-  --text-secondary: #718096;
-  --border-color: rgba(0, 0, 0, 0.08);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.16);
-  --glow-sm: 0 0 20px rgba(102, 126, 234, 0.3);
-  --glow-md: 0 0 40px rgba(240, 147, 251, 0.4);
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --border-color: rgba(100, 116, 139, 0.12);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15), 0 5px 12px rgba(0, 0, 0, 0.08);
+  --glow-sm: 0 0 20px rgba(99, 102, 241, 0.35);
+  --glow-md: 0 0 40px rgba(139, 92, 246, 0.45);
+  --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -33,13 +34,29 @@ html {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 20%, #f093fb 50%, #f5576c 80%, #feca57 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #312e81 25%, #6366f1 50%, #8b5cf6 75%, #a855f7 100%);
   background-attachment: fixed;
   background-size: 400% 400%;
-  animation: gradientShift 20s ease infinite;
+  animation: gradientShift 15s ease infinite;
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 @keyframes gradientShift {
@@ -50,10 +67,10 @@ body {
 
 @keyframes pulse-glow {
   0%, 100% { 
-    box-shadow: 0 0 20px rgba(255, 0, 110, 0.5), 0 0 40px rgba(131, 56, 236, 0.3);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 0 0 40px rgba(139, 92, 246, 0.35);
   }
   50% { 
-    box-shadow: 0 0 30px rgba(255, 0, 110, 0.8), 0 0 60px rgba(131, 56, 236, 0.5);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.7), 0 0 60px rgba(139, 92, 246, 0.5);
   }
 }
 
@@ -64,12 +81,12 @@ body {
 
 /* ==================== NAVIGATION ==================== */
 .navheader {
-  background: rgba(15, 20, 25, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid;
-  border-image: linear-gradient(90deg, #667eea, #f093fb, #f5576c) 1;
-  padding: 24px 32px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -98,7 +115,7 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-size: 32px;
-  animation: float-bounce 3s ease-in-out infinite;
+  animation: float-bounce 3.5s ease-in-out infinite;
 }
 
 .brand-text {
@@ -145,6 +162,8 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   min-height: calc(100vh - 80px);
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
@@ -163,12 +182,14 @@ body {
 }
 
 .search-section {
-  background: var(--card-bg);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: 24px;
   padding: 28px;
-  box-shadow: var(--shadow-lg);
-  border: 2px solid transparent;
-  background-clip: padding-box;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   position: relative;
   overflow: hidden;
 }
@@ -181,24 +202,22 @@ body {
   right: 0;
   bottom: 0;
   z-index: -1;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
-  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  border-radius: 24px;
 }
 
 .search-title {
   font-size: 20px;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #fff;
   margin-bottom: 4px;
   font-family: 'Poppins', sans-serif;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .search-subtitle {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 20px;
   font-weight: 500;
 }
@@ -223,7 +242,7 @@ body {
 .search-input:focus {
   outline: none;
   border-color: var(--neon-purple);
-  box-shadow: 0 0 20px rgba(131, 56, 236, 0.3);
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.28);
 }
 
 .search-input::placeholder {
@@ -248,8 +267,8 @@ body {
 }
 
 .search-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(255, 0, 110, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
 }
 
 .search-btn:active {
@@ -266,11 +285,8 @@ body {
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 1px;
   margin-bottom: 12px;
 }
 
@@ -281,23 +297,24 @@ body {
 }
 
 .city-item {
-  padding: 10px 12px;
-  margin-bottom: 6px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
-  color: var(--text-primary);
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.95);
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;
   transition: var(--transition);
-  border-left: 3px solid transparent;
-  border-image: linear-gradient(180deg, var(--neon-purple), var(--neon-cyan)) 1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .city-item:hover {
-  background: linear-gradient(135deg, rgba(131, 56, 236, 0.2), rgba(0, 245, 255, 0.2));
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
   transform: translateX(4px);
-  box-shadow: 0 0 15px rgba(131, 56, 236, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* ==================== MAIN CONTENT ==================== */
@@ -313,13 +330,14 @@ body {
 }
 
 .current-weather-card {
-  background: var(--card-bg);
-  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: 28px;
   padding: 40px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22), 0 0 40px rgba(14, 165, 233, 0.25);
-  border: 2px solid transparent;
-  border-image: linear-gradient(120deg, rgba(14, 165, 233, 0.8), rgba(99, 102, 241, 0.65), rgba(34, 211, 238, 0.7)) 1;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   position: relative;
   overflow: hidden;
 }
@@ -329,12 +347,12 @@ body {
   position: absolute;
   top: -50%;
   right: -50%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, rgba(34, 211, 238, 0) 60%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0) 70%);
   border-radius: 50%;
-  opacity: 0.25;
-  animation: float 8s ease-in-out infinite;
+  opacity: 0.4;
+  animation: float 10s ease-in-out infinite;
 }
 
 .current-weather-card::after {
@@ -380,18 +398,14 @@ body {
 }
 
 .title {
-  font-size: 38px;
-  font-weight: 800;
-  background: linear-gradient(135deg, #1f2937, #4338ca);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #1f2937;
+  font-size: 48px;
+  font-weight: 900;
+  color: #ffffff;
   margin: 0;
   font-family: 'Poppins', sans-serif;
   grid-column: 1 / -1;
-  letter-spacing: -0.5px;
-  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+  letter-spacing: -1px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .hero-title {
@@ -405,11 +419,12 @@ body {
   height: 140px;
   margin: 0;
   padding: 14px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.26), 0 0 36px rgba(255, 0, 110, 0.35), 0 0 48px rgba(131, 56, 236, 0.35);
-  filter: drop-shadow(0 10px 30px rgba(14, 165, 233, 0.28));
-  animation: float-bounce 3s ease-in-out infinite;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(79, 172, 254, 0.35), rgba(0, 242, 254, 0.28));
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), 0 0 50px rgba(79, 172, 254, 0.55), 0 0 80px rgba(0, 242, 254, 0.45);
+  filter: drop-shadow(0 12px 35px rgba(79, 172, 254, 0.45));
+  animation: float-bounce 3.5s ease-in-out infinite;
+  border: 2.5px solid rgba(79, 172, 254, 0.5);
 }
 
 .hero-icon {
@@ -417,37 +432,49 @@ body {
   position: relative;
 }
 
+.hero-icon.sunny {
+  background: linear-gradient(135deg, rgba(255, 200, 87, 0.95), rgba(255, 152, 0, 0.85));
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.22), 0 0 50px rgba(255, 152, 0, 0.65), 0 0 80px rgba(255, 193, 7, 0.5);
+  filter: drop-shadow(0 14px 40px rgba(255, 152, 0, 0.55));
+  border: 2.5px solid rgba(255, 152, 0, 0.5);
+}
+
 .date-chip, .desc-chip {
   justify-self: start;
-  padding: 10px 14px;
+  padding: 10px 20px;
   border-radius: 999px;
   font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   color: #fff;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .desc-chip {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 16px;
-  background: linear-gradient(135deg, rgba(255, 0, 110, 0.25), rgba(131, 56, 236, 0.2));
+  padding: 10px 20px;
+  background: rgba(99, 102, 241, 0.25);
+  backdrop-filter: blur(10px);
   text-transform: capitalize;
+  border: 1px solid rgba(99, 102, 241, 0.4);
 }
 
 .weather-info {
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
-  padding: 18px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(99, 102, 241, 0.08));
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18), 0 0 24px rgba(14, 165, 233, 0.15);
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
 }
@@ -467,18 +494,27 @@ body {
 
 #city-box p {
   font-size: 15px;
-  color: #111827;
+  color: #ffffff;
   margin: 0;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 12px 14px;
-  border-radius: 14px;
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72));
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: var(--transition);
+}
+
+#city-box p:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .metric {
@@ -525,12 +561,14 @@ body {
 }
 
 .ai-insights-card {
-  background: var(--card-bg);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: 24px;
   padding: 28px;
-  box-shadow: var(--shadow-lg);
-  border: 2px solid rgba(131, 56, 236, 0.3);
-  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   position: relative;
   overflow: hidden;
 }
@@ -541,8 +579,8 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: var(--vibrant-gradient);
+  height: 3px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
 }
 
 .ai-insights-header {
@@ -564,18 +602,16 @@ body {
 .ai-insights-header h3 {
   font-size: 18px;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
   margin: 0;
   font-family: 'Poppins', sans-serif;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .ai-insights-text {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
 }
 
@@ -607,7 +643,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: float-bounce 3s ease-in-out infinite;
+  animation: float-bounce 3.5s ease-in-out infinite;
 }
 
 .forecast-subtitle {
@@ -640,16 +676,19 @@ body {
 }
 
 .cardweather {
-  background: var(--card-bg);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: var(--shadow-md);
-  border: 2px solid rgba(131, 56, 236, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   text-align: center;
   transition: var(--transition);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   position: relative;
   overflow: hidden;
 }
@@ -661,16 +700,17 @@ body {
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--vibrant-gradient);
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .cardweather:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
-  border-color: rgba(131, 56, 236, 0.5);
+  transform: translateY(-12px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .cardweather:hover::before {
@@ -680,13 +720,11 @@ body {
 .datePlace {
   font-size: 12px;
   font-weight: 700;
-  background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: rgba(255, 255, 255, 0.95);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .cardimage {
@@ -694,25 +732,26 @@ body {
   height: auto;
   max-width: 120px;
   margin: 0 auto;
-  padding: 10px;
-  border-radius: 18px;
-  background: radial-gradient(circle at 30% 30%, rgba(79, 172, 254, 0.35), rgba(0, 245, 255, 0.15)),
-              linear-gradient(135deg, rgba(255, 0, 110, 0.25), rgba(131, 56, 236, 0.35));
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15), 0 0 25px rgba(79, 172, 254, 0.25);
-  filter: drop-shadow(0 6px 14px rgba(255, 0, 110, 0.18));
+  padding: 14px;
+  border-radius: 20px;
+  background: radial-gradient(circle at 30% 30%, rgba(79, 172, 254, 0.5), rgba(0, 242, 254, 0.3)),
+              linear-gradient(135deg, rgba(79, 172, 254, 0.4), rgba(0, 242, 254, 0.45));
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.18), 0 0 40px rgba(79, 172, 254, 0.45);
+  filter: drop-shadow(0 10px 22px rgba(79, 172, 254, 0.38));
   transform: translateY(0);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, filter 0.3s ease;
+  border: 2px solid rgba(79, 172, 254, 0.35);
 }
 
 .cardweather:hover .cardimage {
-  transform: translateY(-6px) scale(1.04);
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.18), 0 0 35px rgba(255, 0, 110, 0.35);
-  filter: drop-shadow(0 10px 20px rgba(79, 172, 254, 0.28));
+  transform: translateY(-8px) scale(1.08);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.2), 0 0 55px rgba(79, 172, 254, 0.55);
+  filter: drop-shadow(0 14px 30px rgba(79, 172, 254, 0.45));
 }
 
 .cardinfo {
   font-size: 13px;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.85);
   margin: 0;
   font-weight: 500;
   display: flex;
@@ -722,13 +761,10 @@ body {
 }
 
 .cardinfo strong {
-  color: var(--text-primary);
+  color: #ffffff;
   font-weight: 700;
   display: block;
-  background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* ==================== CONTACT DEVELOPER ==================== */
@@ -751,15 +787,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(255, 0, 110, 0.4);
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.45);
   transition: var(--transition);
-  animation: pulse-glow 3s ease-in-out infinite;
+  animation: pulse-glow 3.5s ease-in-out infinite;
   position: relative;
 }
 
 .contact-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 32px rgba(255, 0, 110, 0.6);
+  transform: scale(1.12);
+  box-shadow: 0 10px 40px rgba(139, 92, 246, 0.6);
 }
 
 .contact-btn:active {
@@ -906,7 +942,7 @@ body {
 
 .contact-submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(255, 0, 110, 0.6);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.5);
 }
 
 .contact-submit-btn:active {

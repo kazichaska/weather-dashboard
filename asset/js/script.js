@@ -200,44 +200,31 @@ function getApi(city) {
         console.error('Error:', error);
         alert(error.message || 'Could not find weather data for this city. Please try another city.');
     })
-    // console.log(requestUrl);
 }
 
-// getApi();
-
-var weatherArray = [];
-async function getWeatherDetail(lat, lon, data) {
-    var requestUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=1b18ce13c84e21faafb19c931bb29331`;
+// ==================== GET WEATHER DETAIL (5-DAY FORECAST) ====================
+async function getWeatherDetail(lat, lon, cityData) {
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=1b18ce13c84e21faafb19c931bb29331`;
     
     try {
-        const response = await fetch(requestUrl);
-        const responseData = await response.json();
+        const response = await fetch(forecastUrl);
+        const forecastData = await response.json();
         
         if (!response.ok) {
-            if (response.status === 401) {
-                throw new Error('Invalid API key. Please check your API key.');
-            } else if (response.status === 429) {
-                throw new Error('Too many requests. Please try again later.');
-            } else {
-                throw new Error(responseData.message || 'Weather data not available');
-            }
+            throw new Error(forecastData.message || 'Could not fetch forecast data');
         }
-
-        if (!responseData || !responseData.list || responseData.list.length === 0) {
-            throw new Error('Invalid weather data received');
+        
+        if (!forecastData || !forecastData.list) {
+            throw new Error('Invalid forecast data received');
         }
-
-        displayTodaysWeather(responseData, data);
-        displayForcast(responseData, data);
-        // Generate AI insights for the current city
-        generateAIInsights(responseData, data[0].name);
+        
+        // Display current weather and forecast
+        displayTodaysWeather(forecastData, cityData);
+        displayForcast(forecastData, cityData);
+        generateAIInsights(forecastData, cityData[0].name);
     } catch (error) {
-        console.error('Error:', error);
-        if (error.message.includes('API key')) {
-            alert('API key error. Please check your API configuration.');
-        } else {
-            alert(error.message || 'Could not fetch weather data. Please try again later.');
-        }
+        console.error('Error fetching forecast:', error);
+        alert('Could not fetch forecast data. Please try again.');
     }
 }
 
